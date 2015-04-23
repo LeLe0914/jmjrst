@@ -93,8 +93,7 @@ public class Main extends JFrame {
     init();
   }
 
-  private void init()
-  {
+  private void init() {
     GraphicsEnvironment ge = GraphicsEnvironment.getLocalGraphicsEnvironment();
     GraphicsDevice[] gs = ge.getScreenDevices();
     GraphicsDevice gd = gs[0];
@@ -271,7 +270,11 @@ public class Main extends JFrame {
         if (hmax != null) h = Integer.parseInt(hmax);
         if (vmax != null) v = Integer.parseInt(vmax);
       }
-      System.out.println(mes.getString("Main.30") + fi.toString() + mes.getString("Main.31") + fo.toString() + mes.getString("Main.32") + q); //$NON-NLS-3$
+      System.out.println(mes.getString("Main.30") 
+    		           + fi.toString() 
+    		           + mes.getString("Main.31") 
+    		           + fo.toString() 
+    		           + mes.getString("Main.32") + q); //$NON-NLS-3$
       new Generator(null, q / 100.0F).generateText(fi, fo, h, v);
     }
   }
