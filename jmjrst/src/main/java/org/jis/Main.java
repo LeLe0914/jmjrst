@@ -65,6 +65,9 @@ public class Main extends JFrame {
   private Options           o;
   private Preview           preview          = null;
   private JScrollPane       jsp              = new JScrollPane();
+  /**
+   * JTextPane
+   */
   public JTextPane          text             = new JTextPane();
   public List               list             = new List(preview);
   public Menu               menu             = null;
