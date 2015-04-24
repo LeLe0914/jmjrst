@@ -7,6 +7,8 @@ import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
 import java.io.File;
 
+import junit.framework.Assert;
+
 import org.junit.Before;
 import org.junit.Test;
 
@@ -28,14 +30,9 @@ public class RotateImageTest {
 	@Test
 	public void testNullOrNochange() {
 		/*
-		 * Test 1. eine beliebige Instanz von BufferedImage 
+		 *  eine beliebige Instanz von BufferedImage 
 		 */
 		assertEquals(bi, generator.rotateImage(bi, 0.0));
-		
-		/*
-		 * Test 2. null einbuchen
-		 */
-	    assertEquals(null, generator.rotateImage(null, 0.0));
 	}
 	
 	/**
@@ -44,6 +41,39 @@ public class RotateImageTest {
 	@Test (expected = IllegalArgumentException.class)
 	public void testIllegalArgumentException() {
 		generator.rotateImage(bi, 1.0);
+	}
+	
+	/**
+	 * Aufgabe 2.f, NullPointerException
+	 */
+	@Test (expected = NullPointerException.class)
+	public void testNullPointerException() {
+		generator.rotateImage(null, 1.0);
+	}
+	
+	/**
+	 * Aufgabe 2.g, exchange width and height in 90 Grad and 270 Grad
+	 */
+	@Test
+	public void testExchangeWidthAndHeight() {
+		int picWidth = bi.getWidth();
+		int picHeight = bi.getHeight();
+		BufferedImage rotatedBi;
+		System.out.println(picWidth + " " + picHeight);
+		
+		/*
+		 * 90 Grad
+		 */
+		rotatedBi = generator.rotateImage(bi, (Math.PI / 2));
+		assertEquals(picWidth, rotatedBi.getHeight());
+		assertEquals(picHeight, rotatedBi.getWidth());
+		
+		/*
+		 * 270 Grad
+		 */
+		rotatedBi = generator.rotateImage(bi, (Math.PI / 2 + Math.PI));
+		assertEquals(picWidth, rotatedBi.getHeight());
+		assertEquals(picHeight, rotatedBi.getWidth());
 	}
 
 }
