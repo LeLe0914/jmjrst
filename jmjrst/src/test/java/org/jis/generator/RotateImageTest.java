@@ -22,9 +22,20 @@ public class RotateImageTest {
 		bi = ImageIO.read(file);
 	}
 
+	/**
+	 * Aufgabe 2.d
+	 */
 	@Test
-	public void test() {	
-		System.out.println(bi.getHeight() + " " + bi.getWidth());
+	public void testD() {
+		/*
+		 * Test 1. eine beliebige Instanz von BufferedImage 
+		 */
+		assertEquals(bi, generator.rotateImage(bi, 0.0));
+		
+		/*
+		 * Test 2. null einbuchen
+		 */
+	    assertEquals(null, generator.rotateImage(null, 0.0));
 	}
 
 }
