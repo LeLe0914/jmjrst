@@ -1,0 +1,96 @@
+From a57cb052845c51696b57016d8d448101b96cfe8a Mon Sep 17 00:00:00 2001
+From: Le Wang <uvdmw@studen.kit.edu>
+Date: Fri, 24 Apr 2015 19:00:01 +0200
+Subject: [PATCH] Test function rotateImage()'s second parameter 1. Input 90
+ degree 2. Input 270 degree Same result: exchange source
+ picture's width and height
+
+---
+ .../src/main/java/org/jis/generator/Generator.java |  2 ++
+ .../java/org/jis/generator/RotateImageTest.java    | 42 ++++++++++++++++++----
+ 2 files changed, 38 insertions(+), 6 deletions(-)
+
+diff --git a/jmjrst/src/main/java/org/jis/generator/Generator.java b/jmjrst/src/main/java/org/jis/generator/Generator.java
+index ba1bf82..90edf67 100755
+--- a/jmjrst/src/main/java/org/jis/generator/Generator.java
++++ b/jmjrst/src/main/java/org/jis/generator/Generator.java
+@@ -719,6 +719,8 @@ public class Generator {
+ 
+   public BufferedImage rotateImage(BufferedImage image, double rotate)
+   {
++	  
++	if (image == null) throw new NullPointerException();  
+     if (rotate == 0) return image;
+ 
+     AffineTransform transform = new AffineTransform();
+diff --git a/jmjrst/src/test/java/org/jis/generator/RotateImageTest.java b/jmjrst/src/test/java/org/jis/generator/RotateImageTest.java
+index d312d61..8bf5198 100644
+--- a/jmjrst/src/test/java/org/jis/generator/RotateImageTest.java
++++ b/jmjrst/src/test/java/org/jis/generator/RotateImageTest.java
+@@ -7,6 +7,8 @@ import javax.imageio.ImageIO;
+ import java.awt.image.BufferedImage;
+ import java.io.File;
+ 
++import junit.framework.Assert;
++
+ import org.junit.Before;
+ import org.junit.Test;
+ 
+@@ -28,14 +30,9 @@ public class RotateImageTest {
+ 	@Test
+ 	public void testNullOrNochange() {
+ 		/*
+-		 * Test 1. eine beliebige Instanz von BufferedImage 
++		 *  eine beliebige Instanz von BufferedImage 
+ 		 */
+ 		assertEquals(bi, generator.rotateImage(bi, 0.0));
+-		
+-		/*
+-		 * Test 2. null einbuchen
+-		 */
+-	    assertEquals(null, generator.rotateImage(null, 0.0));
+ 	}
+ 	
+ 	/**
+@@ -45,5 +42,38 @@ public class RotateImageTest {
+ 	public void testIllegalArgumentException() {
+ 		generator.rotateImage(bi, 1.0);
+ 	}
++	
++	/**
++	 * Aufgabe 2.f, NullPointerException
++	 */
++	@Test (expected = NullPointerException.class)
++	public void testNullPointerException() {
++		generator.rotateImage(null, 1.0);
++	}
++	
++	/**
++	 * Aufgabe 2.g, exchange width and height in 90 Grad and 270 Grad
++	 */
++	@Test
++	public void testExchangeWidthAndHeight() {
++		int picWidth = bi.getWidth();
++		int picHeight = bi.getHeight();
++		BufferedImage rotatedBi;
++		System.out.println(picWidth + " " + picHeight);
++		
++		/*
++		 * 90 Grad
++		 */
++		rotatedBi = generator.rotateImage(bi, (Math.PI / 2));
++		assertEquals(picWidth, rotatedBi.getHeight());
++		assertEquals(picHeight, rotatedBi.getWidth());
++		
++		/*
++		 * 270 Grad
++		 */
++		rotatedBi = generator.rotateImage(bi, (Math.PI / 2 + Math.PI));
++		assertEquals(picWidth, rotatedBi.getHeight());
++		assertEquals(picHeight, rotatedBi.getWidth());
++	}
+ 
+ }
+-- 
+1.7.11.1
+
