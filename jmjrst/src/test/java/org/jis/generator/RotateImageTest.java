@@ -23,10 +23,10 @@ public class RotateImageTest {
 	}
 
 	/**
-	 * Aufgabe 2.d
+	 * Aufgabe 2.d Null or No-change
 	 */
 	@Test
-	public void testD() {
+	public void testNullOrNochange() {
 		/*
 		 * Test 1. eine beliebige Instanz von BufferedImage 
 		 */
@@ -36,6 +36,14 @@ public class RotateImageTest {
 		 * Test 2. null einbuchen
 		 */
 	    assertEquals(null, generator.rotateImage(null, 0.0));
+	}
+	
+	/**
+	 * Aufgabe 2.e , expected IllegalArgumentException
+	 */
+	@Test (expected = IllegalArgumentException.class)
+	public void testIllegalArgumentException() {
+		generator.rotateImage(bi, 1.0);
 	}
 
 }
