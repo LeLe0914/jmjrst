@@ -330,5 +330,12 @@ public class Main extends JFrame {
     this.dispose();
     new Main();
   }
+  
+  /**
+   * Return instance
+   */
+  public static Main getInstance() {
+	  return new Main();
+  }
 
 }

@@ -530,6 +530,7 @@ public class Generator {
     catch (Exception l)
     {
       m.error = true;
+      l.printStackTrace();
     }
   }
 
@@ -602,8 +603,8 @@ public class Generator {
    *          int, heigth of the scaled image
    */
   public void generateText(File input, File output, int width, int height)
-  {
-
+  { 
+	  System.out.println(input.isDirectory());
     // check if mass resize or single picture resize
     if (input.isDirectory() && output.isDirectory()) try
     {
